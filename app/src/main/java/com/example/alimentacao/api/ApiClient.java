@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     // Use 10.0.2.2 para acessar localhost no emulador Android
-    private static final String BASE_URL = "http://192.168.1.10:8080/";
+    private static final String BASE_URL = "http://xxx.xxx.x.xx:8080/";
     private static volatile Retrofit retrofit = null;
 
     public static ApiService getApiService() {
