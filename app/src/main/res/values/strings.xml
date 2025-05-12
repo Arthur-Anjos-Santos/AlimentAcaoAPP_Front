@@ -29,4 +29,9 @@
     <string name="error_short_password">Password must be at least 6 characters</string>
     <string name="error_password_mismatch">Passwords don\'t match</string>
 
+    <string-array name="user_type_array">
+        <item>Administrador</item>
+        <item>Beneficiário</item>
+    </string-array>
+
 </resources>

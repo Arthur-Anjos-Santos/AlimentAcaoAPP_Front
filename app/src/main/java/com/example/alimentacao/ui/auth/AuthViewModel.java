@@ -52,11 +52,19 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
-    public void register(String nome, String cpf, String email, String password) {
+    public void register(String nome, String cpf, String senha, String dataNascimento, String email, String tipoUsuario) {
         registerResult.setValue(Result.loading());
-        Call<RegisterResponse> call = apiService.register(
-                new RegisterRequest(nome, cpf, email, password)
+
+        RegisterRequest request = new RegisterRequest(
+                nome,
+                cpf,
+                senha,
+                dataNascimento,
+                email,
+                tipoUsuario
         );
+
+        Call<RegisterResponse> call = apiService.register(request);
         call.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {

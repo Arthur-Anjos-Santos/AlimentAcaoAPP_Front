@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alimentacao.R;
+import com.example.alimentacao.ui.auth.RegisterActivity;
 import com.example.alimentacao.api.ApiClient;
 import com.example.alimentacao.api.ApiService;
 import com.example.alimentacao.api.models.LoginResponse;

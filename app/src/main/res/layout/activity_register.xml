@@ -22,9 +22,10 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
-                android:src="@drawable/logo_app_small" />
+                android:src="@drawable/logo_app_small"
+                android:contentDescription="Logo do Aplicativo" />
 
-            <!-- Name Input -->
+            <!-- Nome -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +41,7 @@
                     android:textColorHint="@color/grey_light" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- CPF Input -->
+            <!-- CPF -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +58,7 @@
                     android:textColorHint="@color/grey_light" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Email Input -->
+            <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,11 +75,11 @@
                     android:textColorHint="@color/grey_light" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Password Input -->
+            <!-- Senha -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +92,41 @@
                     android:textColorHint="@color/grey_light" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Register Button -->
+            <!-- Data de nascimento -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDateOfBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Data de Nascimento (yyyy-MM-dd)"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey_light" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Tipo de usuário -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Usuário"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp" />
+
+            <Spinner
+                android:id="@+id/spinnerUserType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/white"
+                android:popupBackground="@color/dark_background" />
+
+            <!-- Botão cadastrar -->
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
@@ -103,6 +138,5 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-
     </RelativeLayout>
 </ScrollView>
