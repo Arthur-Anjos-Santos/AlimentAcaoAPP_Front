@@ -1,21 +1,30 @@
 package com.example.alimentacao.utils;
 
 public class Result<T> {
-    public static class Success<T> extends Result<T> {
-        public T data;
+    private final T data;
+    private final String error;
+    private final boolean loading;
 
-        public Success(T data) {
-            this.data = data;
-        }
+    public Result(T data, String error, boolean loading) {
+        this.data = data;
+        this.error = error;
+        this.loading = loading;
     }
 
-    public static class Error<T> extends Result<T> {
-        public String message;
-
-        public Error(String message) {
-            this.message = message;
-        }
+    public static <T> Result<T> loading() {
+        return new Result<>(null, null, true);
     }
 
-    public static class Loading<T> extends Result<T> {}
+    public static <T> Result<T> success(T data) {
+        return new Result<>(data, null, false);
+    }
+
+    public static <T> Result<T> error(String error) {
+        return new Result<>(null, error, false);
+    }
+
+    // Getters
+    public T getData() { return data; }
+    public String getError() { return error; }
+    public boolean isLoading() { return loading; }
 }

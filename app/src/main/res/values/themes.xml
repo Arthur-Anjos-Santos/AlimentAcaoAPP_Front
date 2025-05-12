@@ -2,8 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.AlimentAcao" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimaryVariant">@color/green_dark</item>
+
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -13,4 +14,19 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.AlimentAcao.Splash" parent="Theme.SplashScreen">
+        <!-- Cor de fundo da splash -->
+        <item name="android:windowSplashScreenBackground">@color/green_primary</item>
+
+        <!-- Ícone central da splash -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo_app</item>
+
+        <!-- Duração da animação (em ms) -->
+        <item name="android:windowSplashScreenAnimationDuration">300</item>
+
+        <!-- Tema que será usado após a splash -->
+        <item name="postSplashScreenTheme">@style/Theme.AlimentAcao</item>
+    </style>
+
+
 </resources>

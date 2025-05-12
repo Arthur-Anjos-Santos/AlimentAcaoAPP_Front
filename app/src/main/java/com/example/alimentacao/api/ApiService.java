@@ -10,9 +10,9 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    @POST("auth/login")
-    Call<LoginResponse> login(@Body LoginRequest request);
+    @POST("usuario/login")
+    Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("auth/register")
-    Call<RegisterResponse> register(@Body RegisterRequest request);
+    @POST("usuario")
+    Call<RegisterResponse> register(@Body RegisterRequest registerRequest);
 }
