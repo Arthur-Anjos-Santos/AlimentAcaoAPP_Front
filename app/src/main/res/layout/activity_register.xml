@@ -1,104 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_background"
+    android:background="@color/white"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- LOGO -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/logo_app_small"
+            android:contentDescription="Logo do Aplicativo" />
+
+        <!-- ======== Seção 1: Dados do Usuário ======== -->
         <LinearLayout
+            android:id="@+id/layoutUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:orientation="vertical">
-
-            <!-- Logo -->
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
-                android:src="@drawable/logo_app_small"
-                android:contentDescription="Logo do Aplicativo" />
 
             <!-- Nome -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nome Completo"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey_light" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- CPF -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCpf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="CPF"
                     android:inputType="number"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey_light" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey_light" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Senha -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Senha"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey_light" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Data de nascimento -->
+            <!-- Data de Nascimento -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDateOfBirth"
                     android:layout_width="match_parent"
@@ -106,37 +104,147 @@
                     android:hint="Data de Nascimento (yyyy-MM-dd)"
                     android:focusable="false"
                     android:inputType="none"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey_light" />
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Tipo de usuário -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tipo de Usuário"
-                android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
 
             <Spinner
                 android:id="@+id/spinnerUserType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:backgroundTint="@color/white"
-                android:popupBackground="@color/dark_background" />
+                android:layout_marginBottom="24dp" />
 
-            <!-- Botão cadastrar -->
+            <!-- Botão Próximo -->
+            <Button
+                android:id="@+id/btnNext"
+                style="@style/Widget.Alimentacao.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Próximo" />
+        </LinearLayout>
+
+        <!-- ======== Seção 2: Dados de Endereço ======== -->
+        <LinearLayout
+            android:id="@+id/layoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="16dp">
+
+            <!-- Rua -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Rua"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Número -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Número"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Bairro -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bairro"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Cidade -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cidade"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Estado -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Estado"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- CEP -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="CEP"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Complemento -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Alimentacao.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etComplement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Complemento"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botão Cadastrar -->
             <Button
                 android:id="@+id/btnRegister"
+                style="@style/Widget.Alimentacao.Button"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:backgroundTint="@color/green_primary"
-                android:text="CADASTRAR"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
+                android:layout_height="wrap_content"
+                android:text="Cadastrar" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

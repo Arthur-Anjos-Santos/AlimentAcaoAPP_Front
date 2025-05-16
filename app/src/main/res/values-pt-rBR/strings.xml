@@ -1,37 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AlimentAcao</string>
-
-    <!-- Login screen -->
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="senha">Senha</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="register_here">Register here</string>
-
-    <!-- Register screen -->
     <string name="register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="login_here">Login here</string>
-
-    <!-- Main screen -->
     <string name="welcome_message">Welcome, %s!</string>
     <string name="some_action">Do Something</string>
     <string name="logout">Logout</string>
-
-    <!-- Validation errors -->
     <string name="error_name_required">Name is required</string>
     <string name="error_email_required">Email is required</string>
     <string name="error_invalid_email">Invalid email format</string>
     <string name="error_password_required">Password is required</string>
     <string name="error_short_password">Password must be at least 6 characters</string>
-    <string name="error_password_mismatch" translatable="false">Passwords don\'t match</string>
-
-    <string-array name="user_type_array">
-        <item>Administrador</item>
-        <item>Beneficiário</item>
-    </string-array>
-
 </resources>

@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.alimentacao.api.ApiService;
+import com.example.alimentacao.api.models.EnderecoRequest;
 import com.example.alimentacao.api.models.LoginRequest;
 import com.example.alimentacao.api.models.LoginResponse;
 import com.example.alimentacao.api.models.RegisterRequest;
 import com.example.alimentacao.api.models.RegisterResponse;
+import com.example.alimentacao.api.models.UsuarioRequest;
 import com.example.alimentacao.utils.Result;
 
 import retrofit2.Call;
@@ -52,17 +54,10 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
-    public void register(String nome, String cpf, String senha, String dataNascimento, String email, String tipoUsuario) {
+    public void register(UsuarioRequest usuario, EnderecoRequest endereco) {
         registerResult.setValue(Result.loading());
 
-        RegisterRequest request = new RegisterRequest(
-                nome,
-                cpf,
-                senha,
-                dataNascimento,
-                email,
-                tipoUsuario
-        );
+        RegisterRequest request = new RegisterRequest(usuario, endereco);
 
         Call<RegisterResponse> call = apiService.register(request);
         call.enqueue(new Callback<RegisterResponse>() {

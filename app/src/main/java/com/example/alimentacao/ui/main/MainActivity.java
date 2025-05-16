@@ -2,8 +2,11 @@ package com.example.alimentacao.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mainnaousa);
 
         // Inicializa SessionManager
         sessionManager = new SessionManager(this);
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         setupViews();
         setupNavigation();
         setupBottomNavigation();
+        setupOptionsMenu();
 
         // Exibe o nome do usuário
         displayUserInfo();
@@ -59,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Configura o ícone do menu hamburguer
         findViewById(R.id.ivMenu).setOnClickListener(v ->
                 drawerLayout.openDrawer(GravityCompat.START));
     }
@@ -84,25 +87,32 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    private void setupOptionsMenu() {
+        ImageView ivOptions = findViewById(R.id.ivOptions);
+        ivOptions.setOnClickListener(v -> showPopupMenu(v));
+    }
+
+    private void showPopupMenu(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(this, anchor);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.menu_logout) {
+                logout();
+                return true;
+            }
+            return false;
+        });
+        popupMenu.show();
+    }
 
     private void displayUserInfo() {
-        String userName = sessionManager.getUser().getNome();
-        tvWelcome.setText(String.format("Bem-vindo, %s!", userName));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            logout();
-            return true;
+        Long userId = sessionManager.getUserId();
+        if (userId != null) {
+            tvWelcome.setText(String.format("Bem-vindo, usuário #%d!", userId));
+        } else {
+            tvWelcome.setText("Bem-vindo!");
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Início" />
 
     <item
-        android:id="@+id/nav_diet"
-        android:icon="@drawable/ic_diet"
-        android:title="Dieta" />
+        android:id="@+id/nav_doacao"
+        android:icon="@drawable/ic_food"
+        android:title="Doações" />
 
     <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Perfil" />
+        android:id="@+id/nav_qrcode"
+        android:icon="@drawable/ic_qr"
+        android:title="QR Code" />
+
+    <item
+        android:id="@+id/nav_wallet"
+        android:icon="@drawable/ic_wallet"
+        android:title="Carteira" />
+
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+
 </menu>
+

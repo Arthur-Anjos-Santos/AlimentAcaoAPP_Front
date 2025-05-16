@@ -44,6 +44,8 @@
             android:exported="false"
             android:theme="@style/Theme.Alimentacao" />
 
+        <activity android:name=".ui.auth.HomeActivity" />
+
     </application>
 
 </manifest>

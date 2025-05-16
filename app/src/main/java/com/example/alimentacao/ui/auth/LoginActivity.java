@@ -11,16 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alimentacao.R;
-import com.example.alimentacao.ui.auth.RegisterActivity;
 import com.example.alimentacao.api.ApiClient;
 import com.example.alimentacao.api.ApiService;
 import com.example.alimentacao.api.models.LoginResponse;
-import com.example.alimentacao.ui.main.MainActivity;
+import com.example.alimentacao.ui.auth.HomeActivity;
 import com.example.alimentacao.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
+    private EditText etLogin, etPassword;
     private Button btnLogin;
     private TextView tvRegister;
     private AuthViewModel authViewModel;
@@ -34,9 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         // Inicializa SessionManager
         sessionManager = new SessionManager(this);
 
-        // Verifica se usuário já está logado
+        // Verifica se o usuário já está logado
         if (sessionManager.isLoggedIn()) {
-            navigateToMain();
+            navigateToHome();
             return;
         }
 
@@ -46,52 +45,25 @@ public class LoginActivity extends AppCompatActivity {
         authViewModel = new ViewModelProvider(this, factory).get(AuthViewModel.class);
 
         // Binding dos componentes
-        etEmail = findViewById(R.id.etEmail);
+        etLogin = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Configura listeners
-        btnLogin.setOnClickListener(v -> attemptLogin());
-        tvRegister.setOnClickListener(v -> navigateToRegister());
+        // Ações
+        btnLogin.setOnClickListener(v -> {
+            String login = etLogin.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
+            authViewModel.login(login, password);
+        });
 
-        // Observa resultados do login
-        observeLoginResult();
-    }
+        tvRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
-    private void attemptLogin() {
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-
-        if (validateInputs(email, password)) {
-            authViewModel.login(email, password);
-        }
-    }
-
-    private boolean validateInputs(String email, String password) {
-        if (email.isEmpty()) {
-            etEmail.setError("Email é obrigatório");
-            return false;
-        }
-
-        if (password.isEmpty()) {
-            etPassword.setError("Senha é obrigatória");
-            return false;
-        }
-
-        return true;
-    }
-
-    private void observeLoginResult() {
+        // Observa resposta da API
         authViewModel.getLoginResult().observe(this, result -> {
             if (result == null) return;
 
-            if (result.isLoading()) {
-                showLoading(true);
-                return;
-            }
-
-            showLoading(false);
+            showLoading(result.isLoading());
 
             if (result.getError() != null) {
                 showError(result.getError());
@@ -101,28 +73,27 @@ public class LoginActivity extends AppCompatActivity {
             if (result.getData() != null && result.getData().isSuccess()) {
                 handleSuccessfulLogin(result.getData());
             } else {
-                showError("Login falhou");
+                showError("Falha no login. Verifique suas credenciais.");
             }
         });
     }
 
     private void handleSuccessfulLogin(LoginResponse loginResponse) {
-        sessionManager.saveUser(loginResponse.getData());
-        navigateToMain();
-    }
+        // Salvando token e id (sem nome de usuário)
+        sessionManager.saveUser(loginResponse.getToken(), loginResponse.getId());
 
-    private void navigateToMain() {
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
         finish();
     }
 
-    private void navigateToRegister() {
-        startActivity(new Intent(this, RegisterActivity.class));
+    private void navigateToHome() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 
     private void showLoading(boolean isLoading) {
         btnLogin.setEnabled(!isLoading);
-        // Aqui você pode adicionar lógica para mostrar/esconder ProgressBar, se quiser
     }
 
     private void showError(String errorMessage) {

@@ -53,6 +53,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+
 
     // Material Design
     implementation 'com.google.android.material:material:1.11.0'

@@ -1,73 +1,27 @@
 package com.example.alimentacao.api.models;
 
-import com.google.gson.annotations.SerializedName;
-
 public class RegisterRequest {
-    private String nome;
-    private String cpf;
-    private String email;
+    private UsuarioRequest usuario;
+    private EnderecoRequest endereco;
 
-    @SerializedName("senha")
-    private String password;
-
-    private String dataNascimento;
-    private String tipoUsuario;
-
-    public RegisterRequest(String nome, String cpf, String email, String password, String dataNascimento, String tipoUsuario) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.password = password;
-        this.dataNascimento = dataNascimento;
-        this.tipoUsuario = tipoUsuario;
+    public RegisterRequest(UsuarioRequest usuario, EnderecoRequest endereco) {
+        this.usuario = usuario;
+        this.endereco = endereco;
     }
 
-    // Getters e Setters
-    public String getNome() {
-        return nome;
+    public UsuarioRequest getUsuario() {
+        return usuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsuario(UsuarioRequest usuario) {
+        this.usuario = usuario;
     }
 
-    public String getCpf() {
-        return cpf;
+    public EnderecoRequest getEndereco() {
+        return endereco;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setEndereco(EnderecoRequest endereco) {
+        this.endereco = endereco;
     }
 }

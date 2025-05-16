@@ -4,7 +4,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_background">
+    android:background="@color/white">
 
     <!-- Conteúdo principal -->
     <RelativeLayout
@@ -24,27 +24,47 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/dark_surface">
 
+                <!-- Ícone menu lateral -->
                 <ImageView
                     android:id="@+id/ivMenu"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="start|center_vertical"
                     android:padding="8dp"
-                    android:src="@drawable/ic_menu" />
+                    android:src="@drawable/ic_menu"
+                    android:contentDescription="Menu"
+                    android:clickable="true"
+                    android:focusable="true" />
 
+                <!-- Título do App -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center"
                     android:text="@string/app_name"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Conteúdo principal -->
+        <!-- Botão de opções (fora da Toolbar para garantir clique) -->
+        <ImageView
+            android:id="@+id/ivOptions"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/circle_background"
+            android:padding="8dp"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="Opções"
+            android:clickable="true"
+            android:focusable="true"
+            app:tint="@android:color/white" />
+
+        <!-- Conteúdo da tela -->
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
@@ -63,7 +83,7 @@
                 android:textSize="24sp" />
         </FrameLayout>
 
-        <!-- Bottom Navigation -->
+        <!-- Navegação inferior -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
@@ -75,13 +95,12 @@
             app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>
 
-    <!-- Navigation Drawer -->
+    <!-- Drawer lateral -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/dark_surface"
-        app:menu="@menu/drawer_menu" />
-
+        app:menu="@menu/drawer_menunaousa" />
 </androidx.drawerlayout.widget.DrawerLayout>
