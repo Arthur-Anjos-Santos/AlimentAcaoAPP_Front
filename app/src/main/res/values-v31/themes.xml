@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AlimentAcao.Splash" parent="Theme.SplashScreen">
+        <!-- Cor de fundo da splash -->
+        <item name="android:windowSplashScreenBackground">@color/green_primary</item>
+
+        <!-- Ícone central da splash -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo_app</item>
+
+        <!-- Duração da animação (em ms) -->
+        <item name="android:windowSplashScreenAnimationDuration">300</item>
+
+        <!-- Tema que será usado após a splash -->
+        <item name="postSplashScreenTheme">@style/Theme.AlimentAcao</item>
+    </style>
+</resources>

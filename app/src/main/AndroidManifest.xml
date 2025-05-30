@@ -38,13 +38,12 @@
             android:exported="false"
             android:theme="@style/Theme.Alimentacao.NoActionBar" />
 
-        <!-- Main Activity -->
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Alimentacao" />
-
         <activity android:name=".ui.auth.HomeActivity" />
+
+        <activity android:name=".ui.auth.ReceberDoacaoActivity" />
+
+        <activity android:name=".ui.auth.QrCodeActivity" />
+
 
     </application>
 

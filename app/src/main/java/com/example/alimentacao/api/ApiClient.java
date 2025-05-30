@@ -1,5 +1,7 @@
 package com.example.alimentacao.api;
 
+import android.content.Context;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -8,28 +10,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    // URL fixa para ambiente de desenvolvimento
     private static final String BASE_URL = "http://10.0.2.2:8080/";
+    private static Retrofit retrofit = null;
 
-    private static volatile Retrofit retrofit = null;
-
-    public static ApiService getApiService() {
+    public static ApiService getApiService(Context context) {
         if (retrofit == null) {
-            synchronized (ApiClient.class) {
-                if (retrofit == null) {
-                    retrofit = createRetrofitInstance();
-                }
-            }
+            retrofit = createRetrofitInstance(context);
         }
         return retrofit.create(ApiService.class);
     }
 
-    private static Retrofit createRetrofitInstance() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+    private static Retrofit createRetrofitInstance(Context context) {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
+                .addInterceptor(logging)
+                .addInterceptor(new TokenInterceptor(context)) // Adiciona token JWT
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
