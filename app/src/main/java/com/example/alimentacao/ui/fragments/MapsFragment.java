@@ -11,15 +11,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.alimentacao.R;
 
-public class QrCodeFragment extends Fragment {
+public class MapsFragment extends Fragment {
 
-    public QrCodeFragment() {}
+    public MapsFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_qrcode, container, false);
+        return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 }

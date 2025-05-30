@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_background"
+    android:background="@color/white"
     android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Leitor de QR Code"
-        android:textColor="@color/white"
+        android:text="Mapa"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:layout_gravity="center"/>
 </FrameLayout>

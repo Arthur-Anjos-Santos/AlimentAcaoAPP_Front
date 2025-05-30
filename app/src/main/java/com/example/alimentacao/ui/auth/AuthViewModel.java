@@ -1,28 +1,29 @@
 package com.example.alimentacao.ui.auth;
 
+import android.app.Application;
+import android.content.SharedPreferences;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.alimentacao.api.ApiService;
-import com.example.alimentacao.api.models.EnderecoRequest;
-import com.example.alimentacao.api.models.LoginRequest;
-import com.example.alimentacao.api.models.LoginResponse;
-import com.example.alimentacao.api.models.RegisterRequest;
-import com.example.alimentacao.api.models.RegisterResponse;
-import com.example.alimentacao.api.models.UsuarioRequest;
+import com.example.alimentacao.api.models.*;
+
 import com.example.alimentacao.utils.Result;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AuthViewModel extends ViewModel {
+public class AuthViewModel extends AndroidViewModel {
     private final ApiService apiService;
     private final MutableLiveData<Result<LoginResponse>> loginResult = new MutableLiveData<>();
-    private final MutableLiveData<Result<RegisterResponse>> registerResult = new MutableLiveData<>();
+    private final MutableLiveData<Result<String>> registerResult = new MutableLiveData<>();
 
-    public AuthViewModel(ApiService apiService) {
+    public AuthViewModel(Application application, ApiService apiService) {
+        super(application);
         this.apiService = apiService;
     }
 
@@ -30,7 +31,7 @@ public class AuthViewModel extends ViewModel {
         return loginResult;
     }
 
-    public LiveData<Result<RegisterResponse>> getRegisterResult() {
+    public LiveData<Result<String>> getRegisterResult() {
         return registerResult;
     }
 
@@ -41,7 +42,13 @@ public class AuthViewModel extends ViewModel {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    loginResult.setValue(Result.success(response.body()));
+                    LoginResponse loginResponse = response.body();
+                    if (loginResponse.isSuccess()) {
+                        saveToken(loginResponse.getToken());
+                        loginResult.setValue(Result.success(loginResponse));
+                    } else {
+                        loginResult.setValue(Result.error("Resposta inválida do servidor"));
+                    }
                 } else {
                     loginResult.setValue(Result.error("Credenciais inválidas"));
                 }
@@ -54,24 +61,34 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
+    private void saveToken(String token) {
+        SharedPreferences prefs = getApplication().getSharedPreferences("auth", Application.MODE_PRIVATE);
+        prefs.edit().putString("jwt_token", token).apply();
+    }
+
     public void register(UsuarioRequest usuario, EnderecoRequest endereco) {
         registerResult.setValue(Result.loading());
 
         RegisterRequest request = new RegisterRequest(usuario, endereco);
+        Call<ResponseBody> call = apiService.register(request);
 
-        Call<RegisterResponse> call = apiService.register(request);
-        call.enqueue(new Callback<RegisterResponse>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    registerResult.setValue(Result.success(response.body()));
+                    try {
+                        String responseText = response.body().string();
+                        registerResult.setValue(Result.success(responseText));
+                    } catch (Exception e) {
+                        registerResult.setValue(Result.error("Erro ao ler resposta"));
+                    }
                 } else {
                     registerResult.setValue(Result.error("Falha no cadastro"));
                 }
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 registerResult.setValue(Result.error(t.getMessage()));
             }
         });

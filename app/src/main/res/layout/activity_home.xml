@@ -6,56 +6,60 @@
     android:background="@color/white">
 
     <!-- AppBar com logo, notificações e perfil -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/green_primary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!-- Logo lado esquerdo -->
-        <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/logo_app_small"
-            android:contentDescription="Logo" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/green_primary"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
-        <!-- Botões do lado direito -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
+            <!-- Logo lado esquerdo -->
             <ImageView
-                android:id="@+id/ivNotifications"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_notifications"
-                android:contentDescription="Notificações"/>
+                android:id="@+id/ivLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/logo_app_small"
+                android:contentDescription="Logo" />
 
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_user"
-                android:contentDescription="Perfil"
-                android:padding="4dp" />
+            <!-- Botões do lado direito -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:id="@+id/ivNotifications"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_notifications"
+                    android:contentDescription="Notificações" />
+
+                <ImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_user"
+                    android:contentDescription="Perfil"
+                    android:padding="4dp" />
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Área principal do conteúdo (fragments) -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

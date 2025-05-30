@@ -1,8 +1,10 @@
 package com.example.alimentacao.ui.auth;
 
+import androidx.annotation.ReturnThis;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,7 +16,6 @@ import com.example.alimentacao.R;
 import com.example.alimentacao.api.ApiClient;
 import com.example.alimentacao.api.ApiService;
 import com.example.alimentacao.api.models.LoginResponse;
-import com.example.alimentacao.ui.auth.HomeActivity;
 import com.example.alimentacao.utils.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,36 +31,42 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inicializa SessionManager
         sessionManager = new SessionManager(this);
 
-        // Verifica se o usuário já está logado
+        // Redireciona se já estiver logado
         if (sessionManager.isLoggedIn()) {
             navigateToHome();
             return;
         }
 
-        // Inicializa ViewModel com Factory
-        ApiService apiService = ApiClient.getApiService();
-        AuthViewModelFactory factory = new AuthViewModelFactory(apiService);
+        // Inicializa API e ViewModel
+        ApiService apiService = ApiClient.getApiService(this);
+        AuthViewModelFactory factory = new AuthViewModelFactory(getApplication());
         authViewModel = new ViewModelProvider(this, factory).get(AuthViewModel.class);
 
-        // Binding dos componentes
+        // Bind views
         etLogin = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvRegister = findViewById(R.id.tvRegister);
 
-        // Ações
+        // Login
         btnLogin.setOnClickListener(v -> {
             String login = etLogin.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
+
+            if (login.isEmpty() || password.isEmpty()) {
+                showError("Preencha todos os campos.");
+                return;
+            }
+
             authViewModel.login(login, password);
         });
 
+        // Cadastro
         tvRegister.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
-        // Observa resposta da API
+        // Observador da resposta de login
         authViewModel.getLoginResult().observe(this, result -> {
             if (result == null) return;
 
@@ -70,21 +77,15 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            if (result.getData() != null && result.getData().isSuccess()) {
+            if (result.getData() != null) {
                 handleSuccessfulLogin(result.getData());
-            } else {
-                showError("Falha no login. Verifique suas credenciais.");
             }
         });
     }
 
     private void handleSuccessfulLogin(LoginResponse loginResponse) {
-        // Salvando token e id (sem nome de usuário)
         sessionManager.saveUser(loginResponse.getToken(), loginResponse.getId());
-
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        navigateToHome();
     }
 
     private void navigateToHome() {
