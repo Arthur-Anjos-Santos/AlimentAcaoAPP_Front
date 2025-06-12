@@ -14,11 +14,11 @@
 
         <!-- Logo -->
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="281dp"
+            android:layout_height="262dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="32dp"
-            android:src="@drawable/logo_app_small" />
+            android:src="@drawable/logo_app" />
 
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
