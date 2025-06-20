@@ -1,42 +1,32 @@
-package com.example.alimentacao.ui;
+package com.example.alimentacao.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
+import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.alimentacao.R;
-import com.example.alimentacao.ui.auth.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    // Tempo que a splash screen ficará visível (em milissegundos)
-    private static final int SPLASH_DELAY = 2000; // 2 segundos
+    private static final int DURATION = 3000; // 3 segundos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // Usa um Handler para postergar a mudança de tela
+        ImageView logo = findViewById(R.id.imgLogo);
+
+        // Animação de fade-in
+        AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(1000);
+        logo.startAnimation(animation);
+
         new Handler().postDelayed(() -> {
-            // Inicia a LoginActivity após o tempo definido
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-
-            // Finaliza a SplashActivity para que o usuário não possa voltar para ela
+            startActivity(new Intent(this, LoginActivity.class)); // ou MainActivity
             finish();
-
-            // Adiciona transição suave entre as atividades
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }, SPLASH_DELAY);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Remove as animações quando a activity perde foco
-        overridePendingTransition(0, 0);
+        }, DURATION);
     }
 }

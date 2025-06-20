@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.alimentacao.R;
+import com.example.alimentacao.ui.auth.FazerDoacaoActivity;
 import com.example.alimentacao.ui.auth.ReceberDoacaoActivity;
 
 public class DoacaoFragment extends Fragment {
@@ -28,9 +29,10 @@ public class DoacaoFragment extends Fragment {
         Button btnFazerDoacao = view.findViewById(R.id.btn_fazer_doacao);
         Button btnReceberDoacao = view.findViewById(R.id.btn_receber_doacao);
 
-        btnFazerDoacao.setOnClickListener(v ->
-                Toast.makeText(getContext(), "Opção: Fazer Doação", Toast.LENGTH_SHORT).show()
-        );
+        btnFazerDoacao.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FazerDoacaoActivity.class);
+            startActivity(intent);
+        });
 
         btnReceberDoacao.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ReceberDoacaoActivity.class);

@@ -28,6 +28,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Oculta o título da Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Fragmento padrão ao abrir a tela
@@ -68,6 +73,11 @@ public class HomeActivity extends AppCompatActivity {
         // Configura o clique no ícone de perfil para abrir o menu de logout
         ImageView ivProfile = findViewById(R.id.ivProfile);
         ivProfile.setOnClickListener(this::showProfileMenu);
+
+        // Configura o clique no ícone de notificações para abrir um menu informativo
+        ImageView ivNotifications = findViewById(R.id.ivNotifications);
+        ivNotifications.setOnClickListener(this::showNotificationsMenu);
+
     }
 
     private void showProfileMenu(View anchor) {
@@ -82,7 +92,13 @@ public class HomeActivity extends AppCompatActivity {
             }
             return false;
         });
+        popupMenu.show();
+    }
 
+    private void showNotificationsMenu(View anchor) {
+        PopupMenu popupMenu = new PopupMenu(this, anchor);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.menu_notifications, popupMenu.getMenu());
         popupMenu.show();
     }
 

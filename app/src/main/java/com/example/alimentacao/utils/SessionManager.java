@@ -2,6 +2,7 @@ package com.example.alimentacao.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
@@ -11,7 +12,10 @@ import java.security.GeneralSecurityException;
 
 public class SessionManager {
 
+    private static final String TAG = "SessionManager";
     private static final String PREF_NAME = "AlimentacaoEncryptedPref";
+    private static final String FALLBACK_PREF_NAME = "AlimentacaoPlainPref";
+
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_TOKEN = "auth_token";
     private static final String KEY_USER_ID = "auth_user_id";
@@ -29,10 +33,14 @@ public class SessionManager {
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
-            editor = pref.edit();
+            Log.d(TAG, "EncryptedSharedPreferences inicializado com sucesso.");
         } catch (GeneralSecurityException | IOException e) {
-            throw new RuntimeException("Erro ao inicializar EncryptedSharedPreferences", e);
+            Log.e(TAG, "Erro ao inicializar EncryptedSharedPreferences, usando SharedPreferences comum como fallback", e);
+            // Fallback para SharedPreferences comum (não criptografado)
+            pref = context.getSharedPreferences(FALLBACK_PREF_NAME, Context.MODE_PRIVATE);
         }
+
+        editor = pref.edit();
     }
 
     public void saveUser(String token, Long userId) {

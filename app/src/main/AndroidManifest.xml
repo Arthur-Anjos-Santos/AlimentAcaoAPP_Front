@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".MyApp"
@@ -15,12 +18,16 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <!-- Splash Screen Activity com o tema correto -->
+        <!-- Chave da Google Maps API -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBwqxViUEepOo2WLvUADdeJUhm_p1AxhQQ" />
+
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.auth.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -39,11 +46,9 @@
             android:theme="@style/Theme.Alimentacao.NoActionBar" />
 
         <activity android:name=".ui.auth.HomeActivity" />
-
         <activity android:name=".ui.auth.ReceberDoacaoActivity" />
-
+        <activity android:name=".ui.auth.FazerDoacaoActivity" />
         <activity android:name=".ui.auth.QrCodeActivity" />
-
 
     </application>
 

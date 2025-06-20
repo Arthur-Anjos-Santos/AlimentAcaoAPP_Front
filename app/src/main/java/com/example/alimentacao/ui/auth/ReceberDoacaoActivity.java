@@ -59,15 +59,11 @@ public class ReceberDoacaoActivity extends AppCompatActivity {
                     double rendaPerCapita = response.body().getRendaPerCapita();
                     String qrCode = response.body().getQrCode();
 
-                    if (podeReceber && qrCode != null) {
-                        Intent intent = new Intent(ReceberDoacaoActivity.this, QrCodeActivity.class);
-                        intent.putExtra("rendaPerCapita", rendaPerCapita);
-                        intent.putExtra("qrCode", qrCode);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(ReceberDoacaoActivity.this, "Você não se qualifica. Renda per capita: R$ " + rendaPerCapita, Toast.LENGTH_LONG).show();
-                        finish(); // Fecha a tela
-                    }
+                    Intent intent = new Intent(ReceberDoacaoActivity.this, QrCodeActivity.class);
+                    intent.putExtra("rendaPerCapita", rendaPerCapita);
+                    intent.putExtra("qrCode", podeReceber ? qrCode : null);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(ReceberDoacaoActivity.this, "Erro ao verificar benefício.", Toast.LENGTH_SHORT).show();
                 }
