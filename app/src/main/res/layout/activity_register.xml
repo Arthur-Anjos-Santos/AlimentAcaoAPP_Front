@@ -14,12 +14,12 @@
 
         <!-- LOGO -->
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="146dp"
+            android:layout_width="163dp"
+            android:layout_height="174dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="24dp"
             android:contentDescription="Logo do Aplicativo"
-            android:src="@drawable/logo_app_small1" />
+            android:src="@drawable/logo_app_small" />
 
         <!-- ======== Seção 1: Dados do Usuário ======== -->
 

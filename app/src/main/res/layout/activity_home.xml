@@ -24,7 +24,7 @@
                 android:id="@+id/ivLogo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/logo_app_small2"
+                android:src="@drawable/logo_app_small"
                 android:contentDescription="Logo" />
 
             <!-- Botões do lado direito -->
