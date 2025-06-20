@@ -1,5 +1,7 @@
 package com.example.alimentacao.api;
 
+import com.example.alimentacao.api.models.DoacaoRequest;
+import com.example.alimentacao.api.models.DoacaoResponse;
 import com.example.alimentacao.api.models.EnderecoResponse;
 import com.example.alimentacao.api.models.LoginRequest;
 import com.example.alimentacao.api.models.LoginResponse;
@@ -28,5 +30,8 @@ public interface ApiService {
 
     @GET("/endereco/cep/{cep}")
     Call<EnderecoResponse> buscarEnderecoPorCep(@Path("cep") String cep);
+
+    @POST("doacao/realizar-doacao")
+    Call<ResponseBody> realizarDoacao(@Body DoacaoRequest request);
 
 }

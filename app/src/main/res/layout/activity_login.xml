@@ -14,8 +14,8 @@
 
         <!-- Logo -->
         <ImageView
-            android:layout_width="281dp"
-            android:layout_height="262dp"
+            android:layout_width="324dp"
+            android:layout_height="321dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="32dp"
             android:src="@drawable/logo_app" />

@@ -40,8 +40,6 @@
     <color name="bottom_nav_icon_selected">#4CAF50</color>
     <color name="bottom_nav_colors">#FFFFFF</color>
 
-
-    <!-- Cores roxas padrão do Material Design -->
     <color name="purple_200">#BB86FC</color>
     <color name="purple_500">#6200EE</color>
     <color name="purple_700">#3700B3</color>

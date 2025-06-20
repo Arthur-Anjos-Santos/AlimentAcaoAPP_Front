@@ -4,16 +4,26 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.alimentacao.R;
-import org.json.JSONObject;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.example.alimentacao.api.ApiClient;
+import com.example.alimentacao.api.ApiService;
+import com.example.alimentacao.api.models.DoacaoRequest;
+import com.example.alimentacao.api.models.DoacaoResponse;
+import com.example.alimentacao.utils.SessionManager;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FazerDoacaoActivity extends AppCompatActivity {
 
     private EditText edtAlimento, edtQuantidade, edtComentarios;
+    private ApiService apiService;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,54 +35,57 @@ public class FazerDoacaoActivity extends AppCompatActivity {
         edtComentarios = findViewById(R.id.edtComentarios);
         Button btnEnviar = findViewById(R.id.btnEnviarDoacao);
 
+        // Inicialização Retrofit + Token
+        sessionManager = new SessionManager(getApplicationContext());
+        apiService = ApiClient.getApiService(this);
+
         btnEnviar.setOnClickListener(v -> {
             String alimento = edtAlimento.getText().toString().trim();
-            String quantidade = edtQuantidade.getText().toString().trim();
-            String comentarios = edtComentarios.getText().toString().trim();
+            String quantidadeStr = edtQuantidade.getText().toString().trim();
+            String comentario = edtComentarios.getText().toString().trim();
 
-            if (alimento.isEmpty() || quantidade.isEmpty()) {
+            if (alimento.isEmpty() || quantidadeStr.isEmpty()) {
                 Toast.makeText(this, "Preencha os campos obrigatórios", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            enviarDoacaoParaAPI(alimento, quantidade, comentarios);
+            int quantidade;
+            try {
+                quantidade = Integer.parseInt(quantidadeStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            DoacaoRequest request = new DoacaoRequest(alimento, quantidade, comentario);
+            enviarDoacaoParaAPI(request);
         });
     }
 
-    private void enviarDoacaoParaAPI(String alimento, String quantidade, String comentarios) {
-        new Thread(() -> {
-            try {
-                URL url = new URL("https://sua-api.com/doacoes"); // Substitua pela URL da sua API
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; utf-8");
-                conn.setDoOutput(true);
+    private void enviarDoacaoParaAPI(DoacaoRequest request) {
+        Call<ResponseBody> call = apiService.realizarDoacao(request);
 
-                JSONObject json = new JSONObject();
-                json.put("alimento", alimento);
-                json.put("quantidade", quantidade);
-                json.put("comentarios", comentarios);
-
-                try (OutputStream os = conn.getOutputStream()) {
-                    os.write(json.toString().getBytes("UTF-8"));
-                }
-
-                int responseCode = conn.getResponseCode();
-                runOnUiThread(() -> {
-                    if (responseCode == 200 || responseCode == 201) {
-                        Toast.makeText(this, "Obrigado pela doação! Vá até o ponto de coleta mais próximo.", Toast.LENGTH_LONG).show();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    try {
+                        String mensagem = response.body().string();
+                        Toast.makeText(FazerDoacaoActivity.this, mensagem, Toast.LENGTH_LONG).show();
                         finish();
-                    } else {
-                        Toast.makeText(this, "Erro ao enviar doação. Tente novamente.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(FazerDoacaoActivity.this, "Erro ao ler resposta da API", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() ->
-                        Toast.makeText(this, "Erro de conexão com a API", Toast.LENGTH_SHORT).show()
-                );
+                } else {
+                    Toast.makeText(FazerDoacaoActivity.this, "Erro ao realizar doação", Toast.LENGTH_SHORT).show();
+                }
             }
-        }).start();
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(FazerDoacaoActivity.this, "Erro de conexão com a API", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 }
